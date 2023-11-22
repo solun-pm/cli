@@ -53,8 +53,7 @@ This will generate distribution files in the dist directory that you can publish
 Before publishing the package, ensure any previous build artifacts are cleared to avoid errors:
 
 ```bash
-rm -rf solun.egg-info dist/
-python3 -m build
+rm -rf solun.egg-info
 ```
 
 To publish the package to PyPI, use the following twine command (make sure twine is installed using pip install twine):
