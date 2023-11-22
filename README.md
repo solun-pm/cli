@@ -34,3 +34,18 @@ solun file -p /path/to/your/file -b -pw "YourPassword" -e2e -ad 1d
 * -pw, --password: Set a password for the file (default: None).
 * -e2e, --endToEndEncryption: Enable end-to-end encryption (default: disabled).
 * -ad, --autoDeletion: Set auto deletion parameter. Options: download, 1d, 1w, 1m, 3m, 6m, 1y, never (default: download).
+
+## Build and Publish
+To build the package, run the following command:
+
+```bash
+pip install .
+python3 -m build
+``` 
+
+To publish the package, run the following command:
+
+```bash
+rm -rf solun.egg-info 
+twine upload dist/*
+```
