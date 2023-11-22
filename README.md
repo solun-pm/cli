@@ -40,6 +40,7 @@ To build the package, run the following command:
 
 ```bash
 pip install .
+pip install build
 python3 -m build
 ``` 
 
