@@ -63,7 +63,7 @@ def upload_file(args):
             'endToEndEncryption': args.endToEndEncryption,
             'autoDeletion': args.autoDeletion
         }
-        with httpx.Client() as client:
+        with httpx.Client(timeout=None) as client:
             response = client.post(url, files=files, data=data)
 
     return response
