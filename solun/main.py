@@ -68,7 +68,7 @@ def upload_file(args):
 
     return response
 
-if __name__ == '__main__':
+def main():
     parser = argparse.ArgumentParser(description='Solun-CLI', formatter_class=argparse.RawTextHelpFormatter, add_help=True)
     parser.print_help = lambda: print_custom_help()
     subparsers = parser.add_subparsers(help='sub-command help')

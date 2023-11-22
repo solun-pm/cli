@@ -1,0 +1,8 @@
+# Python build directory
+build/
+
+# Python egg metadata, regenerated from source files by setuptools
+*.egg-info/
+
+# Python cache directories
+__pycache__/
