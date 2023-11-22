@@ -36,17 +36,28 @@ solun file -p /path/to/your/file -b -pw "YourPassword" -e2e -ad 1d
 * -ad, --autoDeletion: Set auto deletion parameter. Options: download, 1d, 1w, 1m, 3m, 6m, 1y, never (default: download).
 
 ## Build and Publish
-To build the package, run the following command:
+
+To build the package, first install the build tool with:
 
 ```bash
-pip install .
 pip install build
-python3 -m build
-``` 
+```
 
-To publish the package, run the following command:
+Then run the following command in the root directory of the project:
 
 ```bash
-rm -rf solun.egg-info 
+python3 -m build
+```
+
+This will generate distribution files in the dist directory that you can publish to PyPI.
+Before publishing the package, ensure any previous build artifacts are cleared to avoid errors:
+
+```bash
+rm -rf solun.egg-info dist/
+python3 -m build
+```
+
+To publish the package to PyPI, use the following twine command (make sure twine is installed using pip install twine):
+```bash
 twine upload dist/*
 ```
