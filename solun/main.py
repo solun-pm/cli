@@ -1,3 +1,4 @@
+import os
 from tqdm import tqdm
 import argparse
 import textwrap
@@ -44,25 +45,38 @@ def hash_password(password):
     except Exception as e:
         print("Error: " + str(e))
         return ''
+    
+class FileStreamWrapper:
+    def __init__(self, generator):
+        self.generator = generator
+
+    def read(self, size=-1):
+        try:
+            return next(self.generator)
+        except StopIteration:
+            return b''
+
 
 def upload_file(args):
     url = 'https://api.solun.pm/file/upload'
 
-    with open(args.path, 'rb') as f:
-        file_data = f.read()
+    total_size = os.path.getsize(args.path)
 
-    with tqdm(total=len(file_data), unit='B', unit_scale=True, desc='Uploading file') as pbar:
-        def upload_chunk(chunk):
-            pbar.update(len(chunk))
-            return chunk
+    with tqdm(total=total_size, unit='B', unit_scale=True, desc='Uploading file') as pbar:
+        def file_stream():
+            with open(args.path, 'rb') as f:
+                while chunk := f.read(4096):
+                    pbar.update(len(chunk))
+                    yield chunk
 
-        files = {'file': (args.path, upload_chunk(file_data))}
+        files = {'file': (args.path, FileStreamWrapper(file_stream()))}
         data = {
             'bruteforceSafe': args.bruteforceSafe,
             'password': 'null' if args.password == 'null' else hash_password(args.password),
             'endToEndEncryption': args.endToEndEncryption,
             'autoDeletion': args.autoDeletion
         }
+        
         with httpx.Client(timeout=None) as client:
             response = client.post(url, files=files, data=data)
 
