@@ -1,6 +1,6 @@
 # Solun-CLI
 
-Solun-CLI is a command line interface tool for uploading files to Solun.
+Solun-CLI is a command line interface tool for uploading and downloading files from Solun.
 
 ## Installation
 
@@ -13,6 +13,7 @@ pip install .
 
 ## Usage
 The `solun` command can be used to upload files with optional settings for brute force protection, password, end-to-end encryption, and auto deletion.
+The `solun` download command can be also used to download files from Solun.
 
 ### Basic Upload
 Upload a file:
@@ -28,12 +29,20 @@ Upload a file with brute force protection, a password, end-to-end encryption, an
 solun file -p /path/to/your/file -b -pw "YourPassword" -e2e -ad 1d
 ```
 
+### Download
+Download a file:
+
+```bash
+solun download -l https://solun.pm/file/xyz
+```
+
 ## Arguments
 * -p, --path: Path to the file to be uploaded.
 * -b, --bruteforceSafe: Enable brute force protection (default: disabled).
 * -pw, --password: Set a password for the file (default: None).
 * -e2e, --endToEndEncryption: Enable end-to-end encryption (default: disabled).
 * -ad, --autoDeletion: Set auto deletion parameter. Options: download, 1d, 1w, 1m, 3m, 6m, 1y, never (default: download).
+* -l, --link: Link to the file to be downloaded.
 
 ## Build and Publish
 
